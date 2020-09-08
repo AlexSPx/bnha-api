@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const uri = process.env.MONGO_URI;
-const port = 5050;
+const port = process.env.PORT || 5050;
 
 //Connect to DB
 mongoose.connect(
@@ -21,5 +21,8 @@ mongoose.connect(
 
 // routes
 app.use("/chapter", require("./routes/chapter"));
+app.get("/", (req, res) => {
+  res.json({ working: "yes" });
+});
 
 app.listen(port, () => console.log(`Running on port ${port}`));
